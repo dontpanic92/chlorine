@@ -88,10 +88,13 @@ pick! {
     target_arch = "msp430",
   ))] {
     // c_char is unsigned (unless using apple)
+    // HACK! I really don't know the char sign for PS Vita,
+    // but the definition here conflicts with std.
     pick! {
       if #[cfg(any(
         target_os = "macos",
         target_os = "ios",
+        target_os = "vita",
       ))] {
         pub type c_char = c_schar;
       } else {
